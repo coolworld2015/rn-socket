@@ -79,11 +79,9 @@ export default class rnsocket extends Component {
 				date: d.toTimeString().split(' ')[0],
 				message: e.data
 			})
+			
 			this.setState({
-				/*
-				message: e.data + `
-				` + this.state.message
-				*/
+				messageText: ''
 			});
 		};
 		
@@ -131,13 +129,15 @@ export default class rnsocket extends Component {
 		
 		return (
 			<View style={styles.container}>
-				<ScrollView style={{flex: 1,   backgroundColor: 'white'}}>
+				<ScrollView style={{
  
+					backgroundColor: 'white',
+					borderColor: '#48BBEC',
+					borderRadius: 5,
+				}}>
  
-				{this.showMessages()}	 
-				
- 
-					 
+						{this.showMessages()}	 
+ 			 
 				</ScrollView>
 				
 				{errorCtrl}
