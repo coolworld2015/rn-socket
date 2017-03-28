@@ -10,6 +10,46 @@ import {
 	ScrollView
 } from 'react-native';
 
+class ListItem extends Component {
+    constructor(props) {
+        super(props);
+		
+		this.state = {
+			width: Dimensions.get('window').width
+		}
+    }
+
+    render() {
+		if (this.props.item.message != 'still alive') {
+			return (
+				<View>
+					<Text style={{		
+						fontSize: 20,
+						textAlign: 'center',
+						margin: 10,
+						backgroundColor: 'white',
+						width: this.state.width * .95
+					}}>
+						{this.props.item.message}
+					</Text>
+					<Text style={{		
+						fontSize: 10,
+						textAlign: 'center',
+						marginTop: -5,
+						marginLeft: 10,
+						backgroundColor: 'white',
+						width: this.state.width * .95
+					}}>
+						{this.props.item.date}
+					</Text>
+				</View>
+			);
+		} else {
+			return null;
+		}
+    }
+}
+
 export default class rnsocket extends Component {
 	constructor(props) {
 		super(props);
@@ -17,6 +57,7 @@ export default class rnsocket extends Component {
 		this.state = {
 			width: Dimensions.get('window').width,
 			message: '',
+			messages: [],
 			messageText: ''
 		}
 		
@@ -32,9 +73,17 @@ export default class rnsocket extends Component {
 		};
 
 		ws.onmessage = (e) => {
+			let d = new Date; 
+			this.state.messages.unshift({
+				id: +new Date(),
+				date: d.toTimeString().split(' ')[0],
+				message: e.data
+			})
 			this.setState({
+				/*
 				message: e.data + `
 				` + this.state.message
+				*/
 			});
 		};
 		
@@ -59,6 +108,17 @@ export default class rnsocket extends Component {
             messageText: text
         })
     }
+
+    showMessages() {
+        return this.state.messages.map((item) => {
+            return (
+                <ListItem
+                    key={item.id}
+                    item={item}
+				/>
+            )
+        })
+    }
 	
 	render() {
 		var errorCtrl;
@@ -72,24 +132,11 @@ export default class rnsocket extends Component {
 		return (
 			<View style={styles.container}>
 				<ScrollView style={{flex: 1,   backgroundColor: 'white'}}>
-				<View style={{
-					flexDirection: 'row',
-					justifyContent: 'space-between',
-					backgroundColor: '#48BBEC',
-					borderWidth: 0,
-					borderColor: 'whitesmoke',
-				}}>
-					<Text style={{		
-						fontSize: 20,
-						textAlign: 'center',
-						margin: 10,
-						backgroundColor: 'white',
-						width: this.state.width * .95
-					}}>
-						{this.state.message}
-					</Text>
-					</View>
-					 
+ 
+ 
+				{this.showMessages()}	 
+				
+ 
 					 
 				</ScrollView>
 				
