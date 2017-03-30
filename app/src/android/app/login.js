@@ -117,11 +117,14 @@ class Login extends Component {
 					</View>
                     <TextInput
 						underlineColorAndroid='rgba(0,0,0,0)'
-                        onChangeText={(text)=> this.setState({
-                            username: text,
-                            badCredentials: false
-                        })}
-                         style={{ 
+                        onChangeText={(text)=> {
+							this.setState({
+								username: text,
+								badCredentials: false
+							})
+							appConfig.socket.name = text;
+						}}
+                        style={{ 
 							height: 50,
 							width: this.state.width * .90,
 							marginTop: 10,

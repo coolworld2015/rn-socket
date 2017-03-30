@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-	AppRegistry,
 	StyleSheet,
 	Text,
 	View,
@@ -10,56 +9,7 @@ import {
 	ScrollView
 } from 'react-native';
 
-class ListItem extends Component {
-    constructor(props) {
-        super(props);
-		
-		this.state = {
-			width: Dimensions.get('window').width
-		}
-    }
-
-    render() {
-		if (this.props.item.message != 'still alive') {
-			return (
-				<View>
-					<Text style={{		
-						fontSize: 20,
-						textAlign: 'center',
-						margin: 10,
-						backgroundColor: 'white',
-						width: this.state.width * .95,
-						color: 'black'
-					}}>
-						{this.props.item.message}
-					</Text>
-					<Text style={{		
-						fontSize: 10,
-						textAlign: 'center',
-						marginTop: -5,
-						marginLeft: 10,
-						backgroundColor: 'white',
-						width: this.state.width * .95
-					}}>
-						{this.props.item.date}
-					</Text>					
-					<Text style={{		
-						fontSize: 10,
-						textAlign: 'center',
-						marginTop: 0,
-						marginLeft: 10,
-						backgroundColor: 'white',
-						width: this.state.width * .95
-					}}>
-						{this.props.item.name}
-					</Text>
-				</View>
-			);
-		} else {
-			return null;
-		}
-    }
-}
+import ListItem from './listItem';
 
 class Socket extends Component {
 	constructor(props) {
@@ -140,48 +90,78 @@ class Socket extends Component {
 		
 		return (
 			<View style={styles.container}>
-				<ScrollView style={{
- 
-					backgroundColor: 'white',
+				<View style={{
+					flex: 1,
+					backgroundColor: 'whitesmoke',
 					borderColor: '#48BBEC',
-					borderRadius: 5,
+					//borderRadius: 5,
+					//borderWidth: 5
 				}}>
- 
-						{this.showMessages()}	 
- 			 
-				</ScrollView>
-				
-				{errorCtrl}
-				
-				<TextInput
-					underlineColorAndroid='rgba(0,0,0,0)'
-					onChangeText={(text)=> this.setState({
-						messageText: text,
-						invalidValue: false
-					})}
-					value={this.state.messageText}
-					style={{ 
-						height: 50,
-						width: this.state.width * .95,
-						marginTop: 10,
-						padding: 4,
-						fontSize: 18,
-						borderWidth: 1,
-						borderColor: 'lightgray',
-						borderRadius: 5,
-						color: 'black',
-						backgroundColor: 'white'
-					}} 
-					placeholder='Text'>
-				</TextInput>
+					<ScrollView >
 
-				<TouchableHighlight
-					onPress={()=> this.goSend()}
-					style={styles.button}>
-					<Text style={styles.buttonText}>
-						Send
-					</Text>
-				</TouchableHighlight>
+						{this.showMessages()}	 
+				 
+					</ScrollView>
+				</View>	
+			
+				<View style={{
+					justifyContent: 'center',
+					alignItems: 'center',
+					backgroundColor: 'white',
+					//backgroundColor: '#F5FCFF',
+					borderColor: '#48BBEC',
+					//borderRadius: 5,
+					//borderWidth: 5,
+					height: 170
+				}}>
+					<View>	
+						<TextInput
+							underlineColorAndroid='rgba(0,0,0,0)'
+							onChangeText={(text)=> this.setState({
+								messageText: text,
+								invalidValue: false
+							})}
+							value={this.state.messageText}
+							style={{ 
+								height: 50,
+								width: this.state.width * .95,
+								marginTop: 0,
+								padding: 4,
+								fontSize: 18,
+								borderWidth: 1,
+								borderColor: 'lightgray',
+								borderRadius: 5,
+								color: 'black',
+								backgroundColor: 'white'
+							}} 
+							placeholder='Message'>
+						</TextInput>
+						
+						{errorCtrl}
+					</View>	
+					
+					<View>	
+						<TouchableHighlight
+							onPress={()=> this.goSend()}
+							style={{ 
+								height: 50,
+								width: this.state.width * .95,
+								backgroundColor: '#48BBEC',
+								
+								borderColor: '#48BBEC',
+								alignSelf: 'stretch',
+								marginTop: 10,
+								margin: 5,
+								justifyContent: 'center',
+								alignItems: 'center',
+								borderRadius: 5
+							}} >
+							<Text style={styles.buttonText}>
+								Send
+							</Text>
+						</TouchableHighlight>
+					</View>	
+				</View>
 			</View>
 		);
 	}
@@ -193,6 +173,9 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#F5FCFF',
+		borderColor: '#48BBEC',
+		//borderRadius: 5,
+		//borderWidth: 3
 	},
 	welcome: {
 		fontSize: 20,
