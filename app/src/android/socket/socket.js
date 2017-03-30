@@ -108,7 +108,7 @@ class Socket extends Component {
 					justifyContent: 'center',
 					alignItems: 'center',
 					backgroundColor: 'white',
-					//backgroundColor: '#F5FCFF',
+					backgroundColor: 'whitesmoke',
 					borderColor: '#48BBEC',
 					//borderRadius: 5,
 					//borderWidth: 5,
@@ -137,7 +137,6 @@ class Socket extends Component {
 							placeholder='Message'>
 						</TextInput>
 						
-						{errorCtrl}
 					</View>	
 					
 					<View>	
@@ -172,7 +171,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
+		backgroundColor: 'whitesmoke',
 		borderColor: '#48BBEC',
 		//borderRadius: 5,
 		//borderWidth: 3
