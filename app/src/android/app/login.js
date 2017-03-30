@@ -19,8 +19,8 @@ class Login extends Component {
 
         this.state = {
             showProgress: false,
-			username: 'Edward',
-			password: '1',
+			username: '',
+			password: '111111',
 			bugANDROID: ''
         }
     }
@@ -33,18 +33,21 @@ class Login extends Component {
 	}
 	
     onLogin() {
-		this.setState({
-            showProgress: true,
-			bugANDROID: ' '
-        });
-
-        if (this.state.username == undefined ||
+        if (this.state.username == undefined || 
+			this.state.username == '' ||
             this.state.password == undefined) {
             this.setState({
                 badCredentials: true
             });
             return;
         }
+		
+		this.props.onLogin(); //TODO
+		
+		this.setState({
+            showProgress: true,
+			bugANDROID: ' '
+        });
 		
 		var url = appConfig.url;
 		
@@ -136,7 +139,7 @@ class Login extends Component {
 							color: 'black',
 							backgroundColor: 'white'
 						}} 
-                        placeholder='Login'>Edward
+                        placeholder='Login'>
                     </TextInput>
 
                     <TextInput
@@ -158,12 +161,12 @@ class Login extends Component {
 							backgroundColor: 'white'
 						}} 
                         placeholder='Password' 
-						secureTextEntry={true}>1
+						secureTextEntry={true}>111111
                     </TextInput>
 
                     <TouchableHighlight
-                        //onPress={()=> this.onLogin()}
-                        onPress={()=> this.onLoginPressed()}
+                        onPress={()=> this.onLogin()}
+                        //onPress={()=> this.onLoginPressed()}
 						style={styles.button}>
                         <Text style={styles.buttonText}>
 							Log in

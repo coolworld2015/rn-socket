@@ -22,9 +22,9 @@ class ListItem extends Component {
 				<View style={{
 					margin: 10,
 					marginTop: 10,
-					backgroundColor: 'white',
+					backgroundColor: '#48BBEC',
 					//borderColor: '#48BBEC',
-					borderColor: 'white',
+					borderColor: '#48BBEC',
 					borderRadius: 25,
 					borderWidth: 5
 				}}>
@@ -33,9 +33,10 @@ class ListItem extends Component {
 						textAlign: 'center',
 						margin: 10,
 						marginTop: 0,
-						backgroundColor: 'white',
+						backgroundColor: '#48BBEC',
 						width: this.state.width * .85,
-						color: 'black'
+						color: 'white',
+						fontWeight: 'bold'
 					}}>
 						{this.props.item.message}
 					</Text>
@@ -44,8 +45,9 @@ class ListItem extends Component {
 						textAlign: 'center',
 						marginTop: -5,
 						marginLeft: 10,
-						backgroundColor: 'white',
-						width: this.state.width * .85
+						backgroundColor: '#48BBEC',
+						width: this.state.width * .85,
+						color: 'white'
 					}}>
 						{this.props.item.date}
 					</Text>					
@@ -54,8 +56,9 @@ class ListItem extends Component {
 						textAlign: 'center',
 						marginTop: 0,
 						marginLeft: 10,
-						backgroundColor: 'white',
-						width: this.state.width * .85
+						backgroundColor: '#48BBEC',
+						width: this.state.width * .85,
+						color: 'white'
 					}}>
 						{this.props.item.name}
 					</Text>

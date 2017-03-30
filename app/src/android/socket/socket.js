@@ -6,6 +6,7 @@ import {
 	TouchableHighlight,
 	TextInput,
 	Dimensions,
+	ActivityIndicator,
 	ScrollView
 } from 'react-native';
 
@@ -18,7 +19,8 @@ class Socket extends Component {
 		this.state = {
 			width: Dimensions.get('window').width,
 			messages: [],
-			messageText: ''
+			messageText: '',
+			showProgress: true
 		}
 		
 		ws = new WebSocket('ws://ui-socket.herokuapp.com');
@@ -29,20 +31,24 @@ class Socket extends Component {
 		};
 		
 		ws.onopen = () => {
-			ws.send('Hello Irinka !!!'); 
+			ws.send('Hello ' + appConfig.socket.name + ' !!!'); 
+			this.setState({
+				showProgress: false
+			});
 		};
 
 		ws.onmessage = (e) => {
 			let d = new Date; 
+			let messageObject = e.data;
 			this.state.messages.unshift({
 				id: +new Date(),
-				name: appConfig.socket.name,
+				name: messageObject.split('###')[1],
 				date: d.toTimeString().split(' ')[0],
-				message: e.data
+				message: messageObject.split('###')[0]
 			})
 			
 			this.setState({
-				// Bug ???
+				showProgress: false
 			});
 		};
 		
@@ -54,11 +60,15 @@ class Socket extends Component {
 				invalidValue: true
 			});
 			return;
-		}	
+		}
 		
-		ws.send(this.state.messageText);
+		let messageObject;
+		messageObject = this.state.messageText + '###' + appConfig.socket.name;
+		
+		ws.send(messageObject); //TODO
 		this.setState({
-			messageText: ''
+			messageText: '',
+			showProgress: true
 		});
 	}
 	
@@ -80,12 +90,23 @@ class Socket extends Component {
     }
 	
 	render() {
-		var errorCtrl;
+        var errorCtrl, loader;
 
-        if (this.state.invalidValue) {
+        if (this.state.serverError) {
             errorCtrl = <Text style={styles.error}>
-                Value required - please provide.
+                Something went wrong.
             </Text>;
+        }
+
+        if (this.state.showProgress) {
+            loader = <View style={{
+                justifyContent: 'center',
+                height: 100
+            }}>
+                <ActivityIndicator
+                    size="large"
+                    animating={true}/>
+            </View>;
         }
 		
 		return (
@@ -98,9 +119,8 @@ class Socket extends Component {
 					//borderWidth: 5
 				}}>
 					<ScrollView >
-
+						{loader}
 						{this.showMessages()}	 
-				 
 					</ScrollView>
 				</View>	
 			
@@ -146,7 +166,6 @@ class Socket extends Component {
 								height: 50,
 								width: this.state.width * .95,
 								backgroundColor: '#48BBEC',
-								
 								borderColor: '#48BBEC',
 								alignSelf: 'stretch',
 								marginTop: 10,
