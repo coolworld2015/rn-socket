@@ -108,7 +108,7 @@ class Login extends Component {
         }
 
         return (
-            <ScrollView>
+            <ScrollView style={{backgroundColor: 'whitesmoke'}} keyboardShouldPersistTaps='always'>
                 <View style={styles.container}>
                     <Image style={styles.logo}
 						source={require('../../../logo.jpg')}
@@ -178,6 +178,7 @@ class Login extends Component {
                     <ActivityIndicator
                         animating={this.state.showProgress}
                         size="large"
+						color="darkblue"
                         style={styles.loader}
                     />
 					
@@ -218,15 +219,16 @@ const styles = StyleSheet.create({
 		textAlign: 'center'
     },
     button: {
-		height: 50,
-		backgroundColor: '#48BBEC',
-		borderColor: '#48BBEC',
-		alignSelf: 'stretch',
-		marginTop: 10,
-		margin: 5,
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderRadius: 5
+        height: 50,
+        //backgroundColor: '#48BBEC',
+        backgroundColor: 'darkblue',
+        borderColor: '#48BBEC',
+        alignSelf: 'stretch',
+        marginTop: 20,
+        margin: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5
     },
     buttonText: {
         color: '#fff',

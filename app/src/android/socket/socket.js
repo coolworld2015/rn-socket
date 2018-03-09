@@ -104,8 +104,11 @@ class Socket extends Component {
                 height: 100
             }}>
                 <ActivityIndicator
-                    size="large"
-                    animating={true}/>
+					animating={this.state.showProgress}
+					size="large"
+					color="darkblue"
+					style={styles.loader}
+				/>
             </View>;
         }
 		
@@ -165,7 +168,8 @@ class Socket extends Component {
 							style={{ 
 								height: 50,
 								width: this.state.width * .95,
-								backgroundColor: '#48BBEC',
+								//backgroundColor: '#48BBEC',
+								backgroundColor: 'darkblue',
 								borderColor: '#48BBEC',
 								alignSelf: 'stretch',
 								marginTop: 10,
